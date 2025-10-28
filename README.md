@@ -7,3 +7,4 @@ Code for EV228
 - Converted YEARS to datetime in %Y format
 - Removed the last datapoint as it was 999.9
 - Plotted NOV temperature data against YEARS
+No generative AI was used for this assignment
