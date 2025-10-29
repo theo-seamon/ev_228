@@ -1,0 +1,16 @@
+import pandas as pd
+import numpy as np
+import complete_var as cpl
+
+def catdog(loops, fizzbuzz, fizz, buzz):
+    for i in range(1, loops + 1):
+        if i % 3 == 0 and i % 5 == 0:
+            print(fizzbuzz)
+        elif i % 3 == 0:
+            print(fizz)
+        elif i % 5 == 0:
+            print(buzz)
+        else:
+            print(i)
+
+catdog(30, "catdog", "cat", "dog")
