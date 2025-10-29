@@ -17,3 +17,9 @@ krdu.select_variable('/Users/theo/Documents/CC/EV228/ev_228/data/Practical4_Data
 
 # Using the complete_var function on different dataset 
 krdu.complete_var('/Users/theo/Documents/CC/EV228/ev_228/data/Practical4_Data/RSM00021432_temp_193601-202508.csv', 'MAR')
+
+# Example of using these functions
+path_name = '/Users/theo/Documents/CC/EV228/ev_228/data/Practical4_Data/RSM00021432_temp_193601-202508.csv'
+var_name = 'MAR'
+krdu.select_variable(path_name, var_name)
+krdu.complete_var(path_name, var_name)
