@@ -1,6 +1,3 @@
-import pandas as pd
-import numpy as np
-import complete_var as cpl
 
 def catdog(loops, fizzbuzz, fizz, buzz):
     for i in range(1, loops + 1):
