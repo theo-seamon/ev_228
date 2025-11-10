@@ -7,6 +7,10 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import cartopy.io.shapereader as shpreader
 from cartopy.util import add_cyclic_point
+from pyfonts import set_default_font, load_google_font
+
+roboto_font = load_google_font('Assistant', weight = 'bold')
+set_default_font(roboto_font)
 
 def make_map(file_path, var_name, time_sel):
         # Importing amazon boundary and making a cartopy shape feature
@@ -33,7 +37,7 @@ def make_map(file_path, var_name, time_sel):
                 ax = ax,
                 transform = ccrs.PlateCarree(),
                 extend = 'both',
-                # cmap = cmocean.cm.thermal,
+                cmap = cmocean.cm.speed,
                 add_colorbar = True,
                 cbar_kwargs = {'label': 'total cloud cover'}
         )
@@ -73,18 +77,18 @@ def make_anom(filepath, var_name):
         lat_min = -30
         lat_max = 15
         ax.set_extent([lon_min, lon_max, lat_min, lat_max], crs=ccrs.PlateCarree())
-        anom.plot.contourf(
+        anom.plot.pcolormesh(
                 x = 'longitude',
                 y = 'latitude',
                 ax = ax,
-                lev = np.arange(-maxV, maxV),
+                # levels = np.arange(-maxV, maxV),
                 transform = ccrs.PlateCarree(),
                 extend = 'both',
-                cmap = cmocean.cm.curl,
+                cmap = cmocean.cm.delta,
                 add_colorbar = True,
                 cbar_kwargs = {'label': 'change in total cloud cover'}
         )
-        ax.set_title('Mean total cloud cover (1950-1980) - (2003-2024)', fontweight = 'bold')
+        ax.set_title('Mean total cloud cover (2003-2024) - (1950-1980)', fontweight = 'bold')
         ax.add_feature(cfeature.COASTLINE)
         ax.add_feature(shape_feature)
         ax.gridlines(crs=ccrs.PlateCarree(),
@@ -122,14 +126,14 @@ def zscore(filepath, var_name, time_sel):
         lat_min = -30
         lat_max = 15
         ax.set_extent([lon_min, lon_max, lat_min, lat_max], crs=ccrs.PlateCarree())
-        ds1.plot.contourf(
+        ds1.plot.pcolormesh(
                 x = 'longitude',
                 y = 'latitude',
                 ax = ax,
-                lev = np.arange(-maxV, maxV),
+                # levels = np.arange(-maxV, maxV),
                 transform = ccrs.PlateCarree(),
                 extend = 'both',
-                cmap = cmocean.cm.curl,
+                cmap = cmocean.cm.delta,
                 add_colorbar = True,
                 cbar_kwargs = {'label': 'z score'}
         )
@@ -210,7 +214,8 @@ def warming_detrend(filepath, var_name):
         plt.show()
 
 # ds = xr.open_dataset('/Users/theo/Documents/CC/EV333/Lab2Data/ERA5_monthly_t2m_regrid.nc')
-# da = ds['t2m'].sel(lon = '-3', lat = '38', method = 'nearest')
+# da = ds['t2m']
+# da = da.mean(('lon','lat'))
 
 # def detrend(da, dim, deg=1):
 #         # detrend along a single dimension
@@ -222,11 +227,10 @@ def warming_detrend(filepath, var_name):
 
 # fig, ax = plt.subplots(layout = 'constrained')
 # ax.plot(da['time'], da, color="#272A59FF", lw = 2)
-# plt.xlabel('year')
-# plt.ylabel('temperature, K')
+# plt.ylabel('TEMPERATURE, K')
 # # plt.xlim(df_x1.min(), df_x1.max())
 # plt.grid(True, linestyle='--', alpha=0.6)
-# plt.title('Temperature without detrend', fontweight = 'bold')
+# plt.title('GLOBAL TEMPERATURE', fontweight = 'bold')
 # ax.spines[['right', 'top']].set_visible(False)
 # ax.set_facecolor("#F6F6F6FF")
 # plt.savefig('/Users/theo/Documents/CC/EV228/ev228_data/Final_maps/predetrend_graph.png')
@@ -234,12 +238,11 @@ def warming_detrend(filepath, var_name):
 
 # fig, ax = plt.subplots(layout = 'constrained')
 # ax.plot(da_detrend['time'], da_detrend, color="#272A59FF", lw = 2)
-# plt.xlabel('year')
-# plt.ylabel('temperature, K')
+# plt.ylabel('TEMPERATURE, K')
 # # plt.xlim(df_x1.min(), df_x1.max())
 # plt.grid(True, linestyle='--', alpha=0.6)
-# plt.title('Temperature detrended', fontweight = 'bold')
+# plt.title('GLOBAL TEMPERATURE DETRENDED', font = roboto_font)
 # ax.spines[['right', 'top']].set_visible(False)
 # ax.set_facecolor("#F6F6F6FF")
 # plt.savefig('/Users/theo/Documents/CC/EV228/ev228_data/Final_maps/detrend_graph.png')
-plt.show()
+# plt.show()
